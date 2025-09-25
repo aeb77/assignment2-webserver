@@ -33,11 +33,13 @@ def webServer(port=13331):
       #This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?    
       #Fill in start 
       responseHeader = b"HTTP/1.1 200 OK\r\n"
-
+      responseHeader += b"Server: Python-WebServer/1.0\r\n"
+      responseHeader += b"Connection: close\r\n"
       #Content-Type is an example on how to send a header as bytes. There are more!
-      outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
+      responseHeader += b"Content-Type: text/html; charset=UTF-8\r\n\r\n"
       #Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n" Refer to https://w3.cs.jmu.edu/kirkpams/OpenCSF/Books/csf/html/TCPSockets.html
- 
+
+      outputdata = b""
       #Fill in end
                
       for i in f: #for line in file
@@ -47,7 +49,7 @@ def webServer(port=13331):
       #Send everything as one send command, do not send one line/item at a time!
 
       # Fill in start
-      connectionSocket.send(responseHeader + outputdata + b"\r\n\r\n")  # Send the response header and content
+      connectionSocket.send(responseHeader + outputdata)  # Send the response header and content
       # Fill in end
         
       connectionSocket.close() #closing the connection socket
@@ -74,3 +76,4 @@ def webServer(port=13331):
 
 if __name__ == "__main__":
   webServer(13331)
+
