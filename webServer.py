@@ -59,7 +59,10 @@ def webServer(port=13331):
       # Remember the format you used in the try: block!
       #Fill in start
       responseHeader = b"HTTP/1.1 404 Not Found\r\n"
-      errorMessage = b"Content-Type: text/html; charset=UTF-8\r\n\r\n"
+      responseHeader += b"Server: Python-WebServer/1.0\r\n"
+      responseHeader += b"Connection: close\r\n"
+      responseHeader = b"Content-Type: text/html; charset=UTF-8\r\n\r\n"
+      errorMessage = b"<html><head><title>404 Not Found</title></head><body><h1>404 Not Found</h1><p>The requested file was not found on this server.</p></body></html>"
       connectionSocket.send(responseHeader + errorMessage)  # Send the response header and content
       #Fill in end
 
@@ -76,4 +79,5 @@ def webServer(port=13331):
 
 if __name__ == "__main__":
   webServer(13331)
+
 
